@@ -10,7 +10,7 @@ public class Watcher implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println("״̬�����ı䣺" + ((Watched) o).getData());
+		System.out.println("状态发生改变:" + ((Watched) o).getData());
 	}
 
 	public static void main(String[] args) {

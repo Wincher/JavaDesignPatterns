@@ -2,7 +2,7 @@ package com.wincher.observer.test;
 
 /**
  * @author Wincher
- *¡¡¡¡¾ßÌåÖ÷Ìâ½ÇÉ«Àà
+ *ã€€ã€€å…·ä½“ä¸»é¢˜è§’è‰²ç±»
  */
 public class ConcreteSubject extends Subject {
 	private String state;
@@ -13,8 +13,8 @@ public class ConcreteSubject extends Subject {
 
 	public void change(String newState) {
 		state = newState;
-		System.out.println("Ö÷Ìâ×´Ì¬Îª£º" + state);
-		// ×´Ì¬·¢Éú¸Ä±ä£¬Í¨Öª¸÷¸ö¹Û²ìÕß
+		System.out.println("ä¸»é¢˜çŠ¶æ€ä¸ºï¼š" + state);
+		// çŠ¶æ€å‘ç”Ÿæ”¹å˜ï¼Œé€šçŸ¥å„ä¸ªè§‚å¯Ÿè€…
 		this.nodifyObservers();
 	}
 }

@@ -4,17 +4,17 @@ import java.util.Observable;
 
 /**
  * @author Wincher
- * ¿Í»§¶ËÀà
+ * å®¢æˆ·ç«¯ç±»
  */
 public class Client {
 	public static void main(String[] args) {
-		//´´½¨Ö÷Ìâ¶ÔÏó
+		//åˆ›å»ºä¸»é¢˜å¯¹è±¡
         ConcreteSubject subject = new ConcreteSubject();
-        //´´½¨¹Û²ìÕß¶ÔÏó
+        //åˆ›å»ºè§‚å¯Ÿè€…å¯¹è±¡
         Observer observer = new ConcreteObserver();
-        //½«¹Û²ìÕß¶ÔÏóµÇ¼Çµ½Ö÷Ìâ¶ÔÏóÉÏ
+        //å°†è§‚å¯Ÿè€…å¯¹è±¡ç™»è®°åˆ°ä¸»é¢˜å¯¹è±¡ä¸Š
         subject.attach(observer);
-        //¸Ä±äÖ÷Ìâ¶ÔÏóµÄ×´Ì¬
+        //æ”¹å˜ä¸»é¢˜å¯¹è±¡çš„çŠ¶æ€
         subject.change("aaa");
 	}
 }

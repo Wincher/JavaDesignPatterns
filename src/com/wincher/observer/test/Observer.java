@@ -2,12 +2,12 @@ package com.wincher.observer.test;
 
 /**
  * @author Wincher
- * ³éÏó¹Û²ìÕß½ÇÉ«Àà
+ * æŠ½è±¡è§‚å¯Ÿè€…è§’è‰²ç±»
  */
 public interface Observer {
 	/**
-     * ¸üĞÂ½Ó¿Ú
-     * @param state    ¸üĞÂµÄ×´Ì¬
+     * æ›´æ–°æ¥å£
+     * @param state    æ›´æ–°çš„çŠ¶æ€
     */
     void update(Subject subject);
 }

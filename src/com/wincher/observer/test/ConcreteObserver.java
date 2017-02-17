@@ -1,21 +1,19 @@
 package com.wincher.observer.test;
 
 /**
- * @author Wincher
- * ¾ßÌå¹Û²ìÕß½ÇÉ«Àà
+ * @author Wincher å…·ä½“è§‚å¯Ÿè€…è§’è‰²ç±»
  */
-public class ConcreteObserver implements Observer{
-	 //¹Û²ìÕßµÄ×´Ì¬
+public class ConcreteObserver implements Observer {
+	// è§‚å¯Ÿè€…çš„çŠ¶æ€
 	private String observerState;
-    
-    @Override
-    public void update(Subject subject) {
-        /**
-         * ¸üĞÂ¹Û²ìÕßµÄ×´Ì¬£¬Ê¹ÆäÓëÄ¿±êµÄ×´Ì¬±£³ÖÒ»ÖÂ
-         */
-        observerState = ((ConcreteSubject)subject).getState();
-        System.out.println("×´Ì¬Îª£º"+observerState);
-    }
 
+	@Override
+	public void update(Subject subject) {
+		/**
+		 * æ›´æ–°è§‚å¯Ÿè€…çš„çŠ¶æ€ï¼Œä½¿å…¶ä¸ç›®æ ‡çš„çŠ¶æ€ä¿æŒä¸€è‡´
+		 */
+		observerState = ((ConcreteSubject) subject).getState();
+		System.out.println("çŠ¶æ€ä¸ºï¼š" + observerState);
+	}
 
 }
