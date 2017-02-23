@@ -1,7 +1,7 @@
 
 ## abstract factory describe
 
->##### test中是在[《JAVA与模式》之工厂方法模式](http://www.cnblogs.com/java-my-life/archive/2012/03/25/2416227.html/)这片博文中讲述的abstract factory的例子做的test
+>##### test中是在[《JAVA与模式》之抽象工厂模式](http://www.cnblogs.com/java-my-life/archive/2012/03/28/2418836.html/)这片博文中讲述的abstract factory的例子做的test
 >>  *借用文中的话*
 由于抽象工厂定义的一系列对象通常是相关或相互依赖的，这些产品对象就构成了一个产品族，也就是抽象工厂定义了一个产品族。  
 这就带来非常大的灵活性，切换产品族的时候，只要提供不同的抽象工厂实现就可以了，也就是说现在是以一个产品族作为一个整体被切换。  
