@@ -14,13 +14,13 @@ public class ProxyTest {
 		serviceProxy.delete();
 		serviceProxy.add();
 
-		byte[] classFile = ProxyGenerator.generateProxyClass("com.sun.proxy.$Proxy.1",
+		/*byte[] classFile = ProxyGenerator.generateProxyClass("com.sun.proxy.$Proxy.1",
 				service.getClass().getInterfaces());
 		FileOutputStream out;
 		out = new FileOutputStream("com.sun.proxy.$Proxy.1.class");
 
 		out.write(classFile);
 		out.flush();
-		out.close();
+		out.close();*/
 	}
 }
