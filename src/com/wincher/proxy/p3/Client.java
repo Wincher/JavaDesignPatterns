@@ -12,7 +12,6 @@ public class Client {
 			Moveable m = (Moveable) Proxy.newProxyInstance();
 			m.move();
 		} catch (IOException | ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
