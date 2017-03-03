@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.Charset;
@@ -23,9 +24,10 @@ public class Proxy {
 	public static Object newProxyInstance(Class infce) throws Exception {
 
 		String rt = "\r\n";
-		String src = "package com.wincher.proxy.myDynamicProxy;" + rt + "public class MyProxy implements " + infce.getName() + " {" + rt
-				+ "	private Moveable target;" + rt + "	public MyProxy(Moveable target) {" + rt + "		super();" + rt
-				+ "		this.target = target;" + rt + "}" + rt + "@Override" + rt + "	public void move() {" + rt
+		String src = "package com.wincher.proxy.myDynamicProxy;" + rt + "public class MyProxy implements "
+				+ infce.getName() + " {" + rt + "	private Moveable target;" + rt
+				+ "	public MyProxy(Moveable target) {" + rt + "		super();" + rt + "		this.target = target;" + rt
+				+ "}" + rt + "@Override" + rt + "	public void move() {" + rt
 				+ "		long start = System.currentTimeMillis();" + rt + "		target.move();" + rt
 				+ "		long end = System.currentTimeMillis();" + rt
 				+ "		System.out.println(\"time used: \" + (end - start));" + rt + "	}" + rt + "}";
@@ -37,6 +39,20 @@ public class Proxy {
 		fw.flush();
 		fw.close();
 
+		Moveable m = compileAndLoad(fileName);
+		//Moveable m = compileAndLoad2();
+		return m;
+	}
+
+	/**
+	 * @param fileName
+	 * @return 
+	 * @author Wincher
+	 * @
+	 */
+	private static Moveable compileAndLoad(String fileName)
+			throws IOException, MalformedURLException, ClassNotFoundException, NoSuchMethodException,
+			InstantiationException, IllegalAccessException, InvocationTargetException {
 		// compile tips：javacompiler need runtime environment jdk，jre's result
 		// is null
 		// 获取JavaCompiler
@@ -61,6 +77,7 @@ public class Proxy {
 
 		Constructor ctr = c.getConstructor(Moveable.class);
 		Moveable m = (Moveable) ctr.newInstance(new Tank());
+		Moveable m2 = (Moveable) compileAndLoad2(fileName);
 		return m;
 	}
 
@@ -83,50 +100,30 @@ public class Proxy {
 		}
 
 	}
-	
-public static Object newProxyInstance2(Class infce) throws Exception {
-		
-		String rt = "\r\n";
-		String src = "package com.wincher.proxy.myDynamicProxy;" + rt +
-		"public class MyProxy implements " + infce.getName() + " {" + rt +
-		"	private Moveable target;" +  rt +
-		"	public MyProxy(Moveable target) {" + rt +
-		"		super();" + rt +
-		"		this.target = target;" + rt +
-		"}" +  rt +
-		"@Override" +  rt +
-		"	public void move() {" + rt + 
-		"		long start = System.currentTimeMillis();" + rt +
-		"		target.move();" + rt +
-		"		long end = System.currentTimeMillis();" + rt +
-		"		System.out.println(\"time used: \" + (end - start));" + rt + 
-		"	}" + rt +
-		"}";
-		System.out.println(src);
-		String fileName = System.getProperty("user.dir") + "/src/com/wincher/proxy/myDynamicProxy/MyProxy.java";
-		File file = new File(fileName);
-		FileWriter fw = new FileWriter(file);
-		fw.write(src);
-		fw.flush();
-		fw.close();
-		
+
+	/**
+	 * @param fileName
+	 * @return
+	 */
+	private static Object compileAndLoad2(String fileName) throws MalformedURLException, ClassNotFoundException,
+			NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-		
-        // 执行编译方法
-        int compilationResult = compiler.run(null, null, null, fileName);
-        // 返回0表示编译成功
-        if (compilationResult == 0) {
-            System.out.println("success");
-            URL[] urls = new URL[] {new URL("file:/" + System.getProperty("user.dir") + "/src")};
-    		URLClassLoader ul = new URLClassLoader(urls);
-    		Class c = ul.loadClass("com.wincher.proxy.myDynamicProxy.MyProxy");
-    		
-    		Constructor ctr = c.getConstructor(Moveable.class);
-    		Moveable m = (Moveable) ctr.newInstance(new Tank());
-    		return m;
-        } else {
-        	System.out.println("fail");
-    		return null;
-        }
+
+		// 执行编译方法
+		int compilationResult = compiler.run(null, null, null, fileName);
+		// 返回0表示编译成功
+		if (compilationResult == 0) {
+			System.out.println("success");
+			URL[] urls = new URL[] { new URL("file:/" + System.getProperty("user.dir") + "/src") };
+			URLClassLoader ul = new URLClassLoader(urls);
+			Class c = ul.loadClass("com.wincher.proxy.myDynamicProxy.MyProxy");
+
+			Constructor ctr = c.getConstructor(Moveable.class);
+			Moveable m = (Moveable) ctr.newInstance(new Tank());
+			return m;
+		} else {
+			System.out.println("fail");
+			return null;
+		}
 	}
 }

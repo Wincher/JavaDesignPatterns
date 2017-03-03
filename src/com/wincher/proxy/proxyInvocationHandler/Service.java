@@ -1,4 +1,4 @@
-package com.wincher.proxy.p2;
+package com.wincher.proxy.proxyInvocationHandler;
 
 public interface Service {
 	// 目标方法

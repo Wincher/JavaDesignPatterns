@@ -1,4 +1,4 @@
-package com.wincher.proxy.p2;
+package com.wincher.proxy.proxyInvocationHandler;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

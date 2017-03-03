@@ -1,4 +1,4 @@
-package com.wincher.proxy.p2;
+package com.wincher.proxy.proxyInvocationHandler;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

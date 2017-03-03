@@ -1,4 +1,4 @@
-package com.wincher.proxy.p2;
+package com.wincher.proxy.proxyInvocationHandler;
 
 public class UserServiceImpl implements Service {
 

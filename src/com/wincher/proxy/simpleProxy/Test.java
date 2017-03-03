@@ -1,4 +1,4 @@
-package com.wincher.proxy.p1;
+package com.wincher.proxy.simpleProxy;
 
 public class Test {
 	public static void main(String[] args) {
