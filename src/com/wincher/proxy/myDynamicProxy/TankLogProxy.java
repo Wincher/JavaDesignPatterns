@@ -1,4 +1,4 @@
-package com.wincher.proxy.p3;
+package com.wincher.proxy.myDynamicProxy;
 
 public class TankLogProxy implements Moveable {
 

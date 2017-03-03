@@ -1,4 +1,4 @@
-package com.wincher.proxy.p3;
+package com.wincher.proxy.myDynamicProxy;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -20,17 +20,17 @@ import javax.tools.ToolProvider;
 
 public class Proxy {
 
-	public static Object newProxyInstance() throws Exception {
+	public static Object newProxyInstance(Class infce) throws Exception {
 
 		String rt = "\r\n";
-		String src = "package com.wincher.proxy.p3;" + rt + "public class Proxy1 implements Moveable {" + rt
-				+ "	private Moveable target;" + rt + "	public Proxy1(Moveable target) {" + rt + "		super();" + rt
+		String src = "package com.wincher.proxy.myDynamicProxy;" + rt + "public class MyProxy implements " + infce.getName() + " {" + rt
+				+ "	private Moveable target;" + rt + "	public MyProxy(Moveable target) {" + rt + "		super();" + rt
 				+ "		this.target = target;" + rt + "}" + rt + "@Override" + rt + "	public void move() {" + rt
 				+ "		long start = System.currentTimeMillis();" + rt + "		target.move();" + rt
 				+ "		long end = System.currentTimeMillis();" + rt
 				+ "		System.out.println(\"time used: \" + (end - start));" + rt + "	}" + rt + "}";
 		System.out.println(src);
-		String fileName = System.getProperty("user.dir") + "/src/com/wincher/proxy/p3/Proxy1.java";
+		String fileName = System.getProperty("user.dir") + "/src/com/wincher/proxy/myDynamicProxy/MyProxy.java";
 		File f = new File(fileName);
 		FileWriter fw = new FileWriter(f);
 		fw.write(src);
@@ -57,10 +57,10 @@ public class Proxy {
 		// load into memory and create an instance
 		URL[] urls = new URL[] { new URL("file:/" + System.getProperty("user.dir") + "/src") };
 		URLClassLoader ul = new URLClassLoader(urls);
-		Class c = ul.loadClass("com.wincher.proxy.p3.Proxy1");
+		Class c = ul.loadClass("com.wincher.proxy.myDynamicProxy.MyProxy");
 
 		Constructor ctr = c.getConstructor(Moveable.class);
-		Moveable m = (Moveable) ctr.newInstance(new Tank());
+		Moveable m = (Moveable) ctr.newInstance(new Tank1());
 		return m;
 	}
 
@@ -82,5 +82,51 @@ public class Proxy {
 			System.out.println("\n");
 		}
 
+	}
+	
+public static Object newProxyInstance2(Class infce) throws Exception {
+		
+		String rt = "\r\n";
+		String src = "package com.wincher.proxy.myDynamicProxy;" + rt +
+		"public class MyProxy implements " + infce.getName() + " {" + rt +
+		"	private Moveable target;" +  rt +
+		"	public MyProxy(Moveable target) {" + rt +
+		"		super();" + rt +
+		"		this.target = target;" + rt +
+		"}" +  rt +
+		"@Override" +  rt +
+		"	public void move() {" + rt + 
+		"		long start = System.currentTimeMillis();" + rt +
+		"		target.move();" + rt +
+		"		long end = System.currentTimeMillis();" + rt +
+		"		System.out.println(\"time used: \" + (end - start));" + rt + 
+		"	}" + rt +
+		"}";
+		System.out.println(src);
+		String fileName = System.getProperty("user.dir") + "/src/com/wincher/proxy/myDynamicProxy/MyProxy.java";
+		File file = new File(fileName);
+		FileWriter fw = new FileWriter(file);
+		fw.write(src);
+		fw.flush();
+		fw.close();
+		
+		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+		
+        // 执行编译方法
+        int compilationResult = compiler.run(null, null, null, fileName);
+        // 返回0表示编译成功
+        if (compilationResult == 0) {
+            System.out.println("success");
+            URL[] urls = new URL[] {new URL("file:/" + System.getProperty("user.dir") + "/src")};
+    		URLClassLoader ul = new URLClassLoader(urls);
+    		Class c = ul.loadClass("com.wincher.proxy.myDynamicProxy.MyProxy");
+    		
+    		Constructor ctr = c.getConstructor(Moveable.class);
+    		Moveable m = (Moveable) ctr.newInstance(new Tank1());
+    		return m;
+        } else {
+        	System.out.println("fail");
+    		return null;
+        }
 	}
 }

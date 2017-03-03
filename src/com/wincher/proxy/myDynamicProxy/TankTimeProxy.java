@@ -1,11 +1,15 @@
-package com.wincher.proxy.p3;
-public class Proxy1 implements Moveable {
+package com.wincher.proxy.myDynamicProxy;
+
+public class TankTimeProxy implements Moveable {
+
 	private Moveable target;
-	public Proxy1(Moveable target) {
+
+	public TankTimeProxy(Moveable target) {
 		super();
 		this.target = target;
-}
-@Override
+	}
+
+	@Override
 	public void move() {
 		long start = System.currentTimeMillis();
 		target.move();

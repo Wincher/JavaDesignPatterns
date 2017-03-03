@@ -1,6 +1,6 @@
-package com.wincher.proxy.p3;
+package com.wincher.proxy.myDynamicProxy;
 
-public class Tank2 extends Tank {
+public class Tank2 extends Tank1 {
 
 	@Override
 	public void move() {

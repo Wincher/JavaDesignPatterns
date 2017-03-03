@@ -1,8 +1,8 @@
-package com.wincher.proxy.p3;
+package com.wincher.proxy.myDynamicProxy;
 
 import java.util.Random;
 
-public class Tank implements Moveable {
+public class Tank1 implements Moveable {
 
 	@Override
 	public void move() {
