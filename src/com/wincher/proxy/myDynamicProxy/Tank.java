@@ -2,7 +2,7 @@ package com.wincher.proxy.myDynamicProxy;
 
 import java.util.Random;
 
-public class Tank1 implements Moveable {
+public class Tank implements Moveable {
 
 	@Override
 	public void move() {

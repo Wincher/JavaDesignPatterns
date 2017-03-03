@@ -6,7 +6,7 @@ public class Client {
 	
 	
 	public static void main(String[] args) throws Exception {
-		Tank1 t = new Tank1();
+		Tank t = new Tank();
 		
 		try {
 			Moveable m = (Moveable) Proxy.newProxyInstance(Moveable.class);
@@ -17,7 +17,7 @@ public class Client {
 	}
 	
 	public static void test1(String[] args) {
-		Moveable m = new TankTimeProxy(new Tank1());
+		Moveable m = new TankTimeProxy(new Tank());
 		Moveable m2 = new TankLogProxy(m);
 		m2.move();
 	}

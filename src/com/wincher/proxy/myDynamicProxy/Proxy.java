@@ -60,7 +60,7 @@ public class Proxy {
 		Class c = ul.loadClass("com.wincher.proxy.myDynamicProxy.MyProxy");
 
 		Constructor ctr = c.getConstructor(Moveable.class);
-		Moveable m = (Moveable) ctr.newInstance(new Tank1());
+		Moveable m = (Moveable) ctr.newInstance(new Tank());
 		return m;
 	}
 
@@ -122,7 +122,7 @@ public static Object newProxyInstance2(Class infce) throws Exception {
     		Class c = ul.loadClass("com.wincher.proxy.myDynamicProxy.MyProxy");
     		
     		Constructor ctr = c.getConstructor(Moveable.class);
-    		Moveable m = (Moveable) ctr.newInstance(new Tank1());
+    		Moveable m = (Moveable) ctr.newInstance(new Tank());
     		return m;
         } else {
         	System.out.println("fail");
