@@ -16,4 +16,13 @@ public class TankTimeProxy implements Moveable {
 		long end = System.currentTimeMillis();
 		System.out.println("time used: " + (end - start));
 	}
+
+	@Override
+	public void fly() {
+		long start = System.currentTimeMillis();
+		target.fly();
+		long end = System.currentTimeMillis();
+		System.out.println("time used: " + (end - start));
+		
+	}
 }

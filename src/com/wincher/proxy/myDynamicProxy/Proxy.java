@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -21,36 +22,51 @@ import javax.tools.ToolProvider;
 
 public class Proxy {
 
-	public static Object newProxyInstance(Class infce) throws Exception {
-
+	public static Object newProxyInstance(Class infce,InvocationHandler h) throws Exception {
+		//编译的java文件存放的路径
+		String path = "/src/com/wincher/proxy/myDynamicProxy/$MyProxy.java";
+		//换行符
 		String rt = "\r\n";
-		String src = "package com.wincher.proxy.myDynamicProxy;" + rt + "public class MyProxy implements "
-				+ infce.getName() + " {" + rt + "	private Moveable target;" + rt
-				+ "	public MyProxy(Moveable target) {" + rt + "		super();" + rt + "		this.target = target;" + rt
-				+ "}" + rt + "@Override" + rt + "	public void move() {" + rt
-				+ "		long start = System.currentTimeMillis();" + rt + "		target.move();" + rt
-				+ "		long end = System.currentTimeMillis();" + rt
-				+ "		System.out.println(\"time used: \" + (end - start));" + rt + "	}" + rt + "}";
+		StringBuilder methodeStr = new StringBuilder();
+		//获取所有接口方法并加入到文件中重写
+		Method[] methodes = infce.getMethods();
+		for (Method m : methodes) {
+			methodeStr.append("   @Override" + rt + "	public void " + m.getName() + "() {" + rt
+					+ "    try{" + rt
+					+ "        Method md = " + infce.getName() + ".class.getMethod(\"" + m.getName() + "\");" + rt
+					+ "        h.invoke(this, md);" + rt
+					+ "    } catch(Exception e) {e.printStackTrace();}" + rt
+					+ "	}" + rt);
+		}
+
+		String src = "package com.wincher.proxy.myDynamicProxy;" + rt
+				+ "import java.lang.reflect.Method;" + rt
+				+ "public class $MyProxy implements " + infce.getName()
+				+ " {" + rt
+				+ "	private com.wincher.proxy.myDynamicProxy.InvocationHandler h;" + rt
+				+ "	public $MyProxy(InvocationHandler handler) {" + rt
+				+ "		super();" + rt
+				+ "		this.h = handler;" + rt
+				+ "}" + rt
+				+ methodeStr.toString() + "}";
 		System.out.println(src);
-		String fileName = System.getProperty("user.dir") + "/src/com/wincher/proxy/myDynamicProxy/MyProxy.java";
-		File f = new File(fileName);
-		FileWriter fw = new FileWriter(f);
+		String fileName = System.getProperty("user.dir") + path;
+		FileWriter fw = new FileWriter(new File(fileName));
 		fw.write(src);
 		fw.flush();
 		fw.close();
 
-		Moveable m = compileAndLoad(fileName);
-		//Moveable m = compileAndLoad2();
+		Object m = compileAndLoad(fileName, h);
+		//Object m = compileAndLoad2(fileName, h);
 		return m;
 	}
 
 	/**
 	 * @param fileName
-	 * @return 
-	 * @author Wincher
-	 * @
+	 * @return
+	 * @author Wincher @
 	 */
-	private static Moveable compileAndLoad(String fileName)
+	private static Object compileAndLoad(String fileName,InvocationHandler h)
 			throws IOException, MalformedURLException, ClassNotFoundException, NoSuchMethodException,
 			InstantiationException, IllegalAccessException, InvocationTargetException {
 		// compile tips：javacompiler need runtime environment jdk，jre's result
@@ -73,11 +89,10 @@ public class Proxy {
 		// load into memory and create an instance
 		URL[] urls = new URL[] { new URL("file:/" + System.getProperty("user.dir") + "/src") };
 		URLClassLoader ul = new URLClassLoader(urls);
-		Class c = ul.loadClass("com.wincher.proxy.myDynamicProxy.MyProxy");
+		Class c = ul.loadClass("com.wincher.proxy.myDynamicProxy.$MyProxy");
 
-		Constructor ctr = c.getConstructor(Moveable.class);
-		Moveable m = (Moveable) ctr.newInstance(new Tank());
-		Moveable m2 = (Moveable) compileAndLoad2(fileName);
+		Constructor ctr = c.getConstructor(InvocationHandler.class);
+		Object m = ctr.newInstance(h);
 		return m;
 	}
 
@@ -105,7 +120,7 @@ public class Proxy {
 	 * @param fileName
 	 * @return
 	 */
-	private static Object compileAndLoad2(String fileName) throws MalformedURLException, ClassNotFoundException,
+	private static Object compileAndLoad2(String fileName,InvocationHandler h) throws MalformedURLException, ClassNotFoundException,
 			NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
@@ -116,10 +131,10 @@ public class Proxy {
 			System.out.println("success");
 			URL[] urls = new URL[] { new URL("file:/" + System.getProperty("user.dir") + "/src") };
 			URLClassLoader ul = new URLClassLoader(urls);
-			Class c = ul.loadClass("com.wincher.proxy.myDynamicProxy.MyProxy");
+			Class c = ul.loadClass("com.wincher.proxy.myDynamicProxy.$MyProxy");
 
-			Constructor ctr = c.getConstructor(Moveable.class);
-			Moveable m = (Moveable) ctr.newInstance(new Tank());
+			Constructor ctr = c.getConstructor(InvocationHandler.class);
+			Object m = ctr.newInstance(h);
 			return m;
 		} else {
 			System.out.println("fail");

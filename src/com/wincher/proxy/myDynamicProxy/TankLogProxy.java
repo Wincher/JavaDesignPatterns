@@ -16,4 +16,12 @@ public class TankLogProxy implements Moveable {
 		long end = System.currentTimeMillis();
 		System.out.println("end");
 	}
+
+	@Override
+	public void fly() {
+		System.out.println("start");
+		target.fly();
+		long end = System.currentTimeMillis();
+		System.out.println("end");
+	}
 }

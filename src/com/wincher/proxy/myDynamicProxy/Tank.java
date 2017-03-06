@@ -15,4 +15,14 @@ public class Tank implements Moveable {
 		
 	}
 
+	@Override
+	public void fly() {
+		System.out.println("Tank flying?...");
+		try {
+			Thread.sleep(new Random().nextInt(1000));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }
