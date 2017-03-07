@@ -1,5 +1,6 @@
 package com.wincher.proxy.myDynamicProxy;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 
 public class TimeInvocationHandler implements InvocationHandler{
@@ -20,6 +21,10 @@ public class TimeInvocationHandler implements InvocationHandler{
 		}
 		Long end = System.currentTimeMillis();
 		System.out.println("Time:" + (end - start));
+	}
+	
+	public Object getProxy(Class clazz) throws Exception {
+		return Proxy.newProxyInstance(Moveable.class,this);
 	}
 
 }

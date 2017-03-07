@@ -9,7 +9,8 @@ public class Client {
 		Tank t = new Tank();
 		TimeInvocationHandler h = new TimeInvocationHandler(t);
 		try {
-			Moveable m = (Moveable) Proxy.newProxyInstance(Moveable.class,h);
+			//Moveable m = (Moveable) Proxy.newProxyInstance(Moveable.class,h);
+			Moveable m = (Moveable) h.getProxy(Moveable.class);
 			m.move();
 			m.fly();
 		} catch (IOException | ClassNotFoundException e) {

@@ -25,5 +25,6 @@ public class MyInvocatioHandler implements InvocationHandler {
 		Class<?>[] interfaces = target.getClass().getInterfaces();
 		return Proxy.newProxyInstance(loader, interfaces, this);
 	}
+	
 
 }
