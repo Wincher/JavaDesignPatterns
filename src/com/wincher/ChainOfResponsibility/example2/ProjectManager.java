@@ -1,13 +1,13 @@
-package com.wincher.ChainOfResponsibility.example2.example;
+package com.wincher.ChainOfResponsibility.example2;
 
 /**
  * Created by Wincher on 2017/3/15.
  */
-public class DeptManager extends Handler{
+public class ProjectManager extends Handler {
     @Override
     String handleFeeRequest(String user, double fee) {
         String str = "";
-        if (fee < 1000){
+        if (fee < 500){
             if ("张三".equals(user)){
                 str = getClass().getName() + "Agree:" + user + "'s fee: " + fee;
             } else {
