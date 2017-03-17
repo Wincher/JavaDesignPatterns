@@ -1,4 +1,4 @@
-package com.wincher.ChainOfResponsibility.example2;
+package com.wincher.chainOfResponsibility.example2;
 
 /**
  * Created by Wincher on 2017/3/15.

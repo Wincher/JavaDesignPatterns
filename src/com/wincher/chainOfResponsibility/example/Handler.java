@@ -1,11 +1,11 @@
-package com.wincher.ChainOfResponsibility.example2;
+package com.wincher.chainOfResponsibility.example;
 
 /**
  * Created by Wincher on 2017/3/15.
  */
 public abstract class Handler {
     protected Handler successor;
-    abstract String handleFeeRequest(String user, double fee);
+    abstract void handlerRequest();
 
     public void setSuccessor(Handler successor) {
         this.successor = successor;
@@ -14,5 +14,4 @@ public abstract class Handler {
     public Handler getSuccessor() {
         return successor;
     }
-
 }
