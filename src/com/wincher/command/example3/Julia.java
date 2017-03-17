@@ -23,5 +23,12 @@ public class Julia {
         keyBoard.stop();
         keyBoard.play();
         keyBoard.stop();
+
+        MarcoCommand marco = new MarcoAudioCommand();
+
+        marco.add(playCommand);
+        marco.add(rewindCommand);
+        marco.add(stopCommand);
+        marco.execute();
     }
 }
