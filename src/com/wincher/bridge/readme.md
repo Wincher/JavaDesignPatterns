@@ -1,11 +1,11 @@
 
-## fbridge methode describe
+## bridge methode describe
 >在阎宏博士的《JAVA与模式》一书中开头是这样描述桥梁（Bridge）模式的：
 桥梁模式是对象的结构模式。又称为柄体(Handle and Body)模式或接口(Interface)模式。桥梁模式的用意是“将抽象化(Abstraction)与实现化(Implementation)脱耦，使得二者可以独立地变化”。
 
 　　工厂方法模式的用意是定义一个创建产品对象的工厂接口，将实际创建工作推迟到子类中。
 
->##### test中是在[《JAVA与模式》之工厂方法模式](http://www.cnblogs.com/java-my-life/archive/2012/03/25/2416227.html/)这片博文中讲述的simple factory的例子做的test
+>##### test中是在[《JAVA 与模式》之桥梁模式](http://www.cnblogs.com/java-my-life/archive/2012/05/07/2480938.html/)
 >>  *借用文中的话*
 桥梁模式的用意
 　　桥梁模式虽然不是一个使用频率很高的模式，但是熟悉这个模式对于理解面向对象的设计原则，包括“开-闭”原则以及组合/聚合复用原则都很有帮助。理解好这两个原则，有助于形成正确的设计思想和培养良好的设计风格。
